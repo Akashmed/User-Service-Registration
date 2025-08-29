@@ -13,7 +13,9 @@ target/
 .springBeans
 .sts4-cache
 
-.yaml
+*.yaml
+*.yml
+
 
 ### IntelliJ IDEA ###
 .idea
