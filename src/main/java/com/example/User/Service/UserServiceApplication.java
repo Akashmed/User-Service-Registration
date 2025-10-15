@@ -36,7 +36,7 @@ public class UserServiceApplication {
 //        System.out.println(user);
 
         var service = context.getBean(userService.class);
-        service.fetchProducts();
+        service.findProfiles();
     }
 
 }

@@ -4,10 +4,7 @@ import com.example.User.Service.entities.Address;
 import com.example.User.Service.entities.Category;
 import com.example.User.Service.entities.Product;
 import com.example.User.Service.entities.User;
-import com.example.User.Service.repositories.ProductRepository;
-import com.example.User.Service.repositories.addressRepository;
-import com.example.User.Service.repositories.categoryRepository;
-import com.example.User.Service.repositories.userRepository;
+import com.example.User.Service.repositories.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -23,6 +20,7 @@ public class userService {
     private final addressRepository addressRepository;
     private final categoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final profileRepository profileRepository;
 
     @Transactional
     public void showEntityStates(){
@@ -108,5 +106,10 @@ public class userService {
         var category = categoryRepository.findById(4L).orElseThrow();
         var products = productRepository.findProductByCategory(category);
         products.forEach(System.out::println);
+    }
+
+    public void findProfiles(){
+        var profiles = profileRepository.findProfilesByLoyaltyPointsOrderByEmail(2);
+        profiles.forEach(p -> System.out.println(p.getId() + " " + p.getUser().getEmail()));
     }
 }
