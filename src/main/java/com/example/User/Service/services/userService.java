@@ -8,6 +8,8 @@ import com.example.User.Service.repositories.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -103,8 +105,14 @@ public class userService {
     }
 
     public void findProducts(){
-        var category = categoryRepository.findById(4L).orElseThrow();
-        var products = productRepository.findProductByCategory(category);
+        var product = new Product();
+        product.setName("product");
+        var matcher = ExampleMatcher.matching()  //Example matcher object for customizing matching behavior
+                .withIncludeNullValues()
+                .withIgnorePaths("id", "description")
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        var example = Example.of(product, matcher);
+        var products = productRepository.findAll(example);
         products.forEach(System.out::println);
     }
 
