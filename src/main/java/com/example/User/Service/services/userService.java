@@ -99,6 +99,11 @@ public class userService {
         products.forEach(System.out::println);
     }
 
+    public void findProductsByCriteria(){
+        var products = productRepository.findProductsByCriteria(null, BigDecimal.valueOf(130), BigDecimal.valueOf(150));
+        products.forEach(System.out::println);
+    }
+
     @Transactional
     public void updateProductPrice(){
         productRepository.updatePriceByCategory(BigDecimal.valueOf(134.21), BigDecimal.valueOf(4L));
