@@ -9,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import java.math.BigDecimal;
+
 @SpringBootApplication
 public class UserServiceApplication {
 
@@ -36,7 +38,7 @@ public class UserServiceApplication {
 //        System.out.println(user);
 
         var service = context.getBean(userService.class);
-        service.findProductsByCriteria();
+        service.findProductsBySpecification("prod", BigDecimal.valueOf(120), null);
     }
 
 }

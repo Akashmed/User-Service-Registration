@@ -4,6 +4,7 @@ import com.example.User.Service.dtos.ProductSummary;
 import com.example.User.Service.entities.Category;
 import com.example.User.Service.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
@@ -12,7 +13,7 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Long>, productsCriteriaRepository {
+public interface ProductRepository extends JpaRepository<Product, Long>, productsCriteriaRepository, JpaSpecificationExecutor<Product> {
 //    derived query method
     List<Product> findByPriceBetweenOrderByName(BigDecimal min, BigDecimal max);
 
