@@ -38,7 +38,7 @@ public class UserServiceApplication {
 //        System.out.println(user);
 
         var service = context.getBean(userService.class);
-        service.findProductsBySpecification("prod", BigDecimal.valueOf(120), null);
+        service.fetchPaginatedProducts(0, 10);
     }
 
 }

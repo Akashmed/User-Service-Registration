@@ -9,8 +9,7 @@ import com.example.User.Service.repositories.specifications.productSpec;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -142,5 +141,30 @@ public class userService {
     public void findProfiles(){
         var profiles = profileRepository.findProfilesByLoyaltyPointsOrderByEmail(2);
         profiles.forEach(p -> System.out.println(p.getId() + " " + p.getUser().getEmail()));
+    }
+
+    public void fetchSortedProducts(){
+       var sort = Sort.by("name").and(
+                Sort.by("price").descending()  //ascending by default
+        );
+
+//       simply could be Sort.by("name", "Price").descending();
+
+
+        productRepository.findAll(sort).forEach(System.out::println);
+    }
+
+    public void fetchPaginatedProducts(int pageNumber, int size){
+        PageRequest pageRequest = PageRequest.of(pageNumber,size);
+       Page<Product> page = productRepository.findAll(pageRequest); // return a page
+
+       var products = page.getContent(); // get all products from that page
+       products.forEach(System.out::println);
+
+       var totalPages = page.getTotalPages(); //total pages of products in db
+       var totalElements = page.getTotalElements(); //total products in db
+
+        System.out.println("Total pages: " + totalPages);
+        System.out.println("Total elements: " + totalElements);
     }
 }
